@@ -3,7 +3,7 @@
 /* Dependencies. */
 var assert = require('assert');
 var test = require('tape');
-var htmlElementAttributes = require('./index.js');
+var htmlElementAttributes = require('./');
 
 /* Tests. */
 test('htmlElementAttributes', function (t) {
