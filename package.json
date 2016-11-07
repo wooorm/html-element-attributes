@@ -30,7 +30,7 @@
     "cheerio": "^0.20.0",
     "concat-stream": "^1.5.2",
     "esmangle": "^1.0.1",
-    "istanbul": "^0.4.0",
+    "nyc": "^8.4.0",
     "remark-cli": "^2.1.0",
     "remark-preset-wooorm": "^1.0.0",
     "tape": "^4.4.0",
@@ -45,7 +45,7 @@
     "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
     "lint": "xo",
     "test-api": "node test",
-    "test-coverage": "istanbul cover test.js",
+    "test-coverage": "nyc --reporter lcov tape test.js",
     "test": "npm run build && npm run lint && npm run test-coverage"
   },
   "xo": {
@@ -53,6 +53,12 @@
     "ignores": [
       "html-element-attributes.js"
     ]
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 100,
+    "functions": 100,
+    "branches": 100
   },
   "remarkConfig": {
     "presets": "wooorm"
