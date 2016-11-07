@@ -39,12 +39,12 @@
   },
   "scripts": {
     "build-md": "remark . --quiet --frail --output",
-    "build-crawl": "node script/build.js",
+    "build-crawl": "node build",
     "build-bundle": "browserify index.json --bare -s htmlElementAttributes > html-element-attributes.js",
     "build-mangle": "esmangle html-element-attributes.js > html-element-attributes.min.js",
     "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
     "lint": "xo",
-    "test-api": "node test.js",
+    "test-api": "node test",
     "test-coverage": "istanbul cover test.js",
     "test": "npm run build && npm run lint && npm run test-coverage"
   },

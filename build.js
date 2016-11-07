@@ -2,13 +2,12 @@
 
 /* Dependencies. */
 var fs = require('fs');
-var path = require('path');
 var https = require('https');
 var cheerio = require('cheerio');
 var trim = require('trim');
 var bail = require('bail');
 var concat = require('concat-stream');
-var map = require('..');
+var map = require('./');
 
 /* Global attributes. */
 var globals = map['*'];
@@ -21,7 +20,7 @@ if (!globals) {
 var html4 = 'https://www.w3.org/TR/html4/index/attributes.html';
 var w3c = 'https://www.w3.org/TR/html5/index.html';
 var whatwg = 'https://html.spec.whatwg.org/multipage/indices.html';
-var output = path.join(__dirname, '..', 'index.json');
+var output = 'index.json';
 
 var counter = 0;
 var expect = 3;
