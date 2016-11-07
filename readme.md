@@ -1,4 +1,4 @@
-# html-element-attributes [![Build Status][build-badge]][build-page] [![Coverage Status][coverage-badge]][coverage-page]
+# html-element-attributes [![Build Status][build-badge]][build-page]
 
 Map of HTML elements to allowed attributes.  Also contains global
 attributes under `'*'`.  Includes attributes from HTML 4, W3C HTML 5,
@@ -83,10 +83,6 @@ attributes which apply to all HTML elements.
 [build-badge]: https://img.shields.io/travis/wooorm/html-element-attributes.svg
 
 [build-page]: https://travis-ci.org/wooorm/html-element-attributes
-
-[coverage-badge]: https://img.shields.io/codecov/c/github/wooorm/html-element-attributes.svg
-
-[coverage-page]: https://codecov.io/github/wooorm/html-element-attributes?branch=master
 
 [npm]: https://docs.npmjs.com/cli/install
 

@@ -1,7 +1,5 @@
 .DS_Store
 *.log
-.nyc_output/
-coverage/
 node_modules/
 html-element-attributes.js
 html-element-attributes.min.js
