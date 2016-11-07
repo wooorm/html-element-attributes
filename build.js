@@ -2,11 +2,10 @@
 
 /* Dependencies. */
 var fs = require('fs');
-var https = require('https');
-var cheerio = require('cheerio');
+var jsdom = require('jsdom');
 var trim = require('trim');
 var bail = require('bail');
-var concat = require('concat-stream');
+var ev = require('hast-util-is-event-handler');
 var map = require('./');
 
 /* Global attributes. */
@@ -16,33 +15,34 @@ if (!globals) {
   globals = map['*'] = [];
 }
 
-/* Input / output locations. */
-var html4 = 'https://www.w3.org/TR/html4/index/attributes.html';
-var w3c = 'https://www.w3.org/TR/html5/index.html';
-var whatwg = 'https://html.spec.whatwg.org/multipage/indices.html';
-var output = 'index.json';
-
 var counter = 0;
 var expect = 3;
 
 /* Crawl HTML 4. */
-load(html4, function (err, doc) {
+jsdom.env('https://www.w3.org/TR/html4/index/attributes.html', function (err, window) {
   bail(err);
 
-  var $ = cheerio.load(doc);
-  var rows = $('table tr');
+  var rows = window.document.querySelectorAll('table tr');
   var position = -1;
   var length = rows.length;
   var node;
   var name;
   var elements;
+  map = {};
 
   while (++position < length) {
-    node = $(rows[position]);
-    name = trim(node.find('[title="Name"]').text());
-    elements = node.find('[title="Related Elements"]').text();
+    node = rows[position];
+    name = node.querySelector('[title="Name"]');
+    elements = node.querySelector('[title="Related Elements"]');
 
-    if (!name || name.slice(0, 2) === 'on') {
+    if (!name || !elements) {
+      continue;
+    }
+
+    name = trim(name.textContent);
+    elements = elements.textContent;
+
+    if (!name || ev(name)) {
       continue;
     }
 
@@ -59,19 +59,21 @@ load(html4, function (err, doc) {
 });
 
 /* Crawl W3C HTML 5. */
-load(w3c, function (err, doc) {
+jsdom.env('https://www.w3.org/TR/html5/index.html', function (err, window) {
   bail(err);
 
-  var $ = cheerio.load(doc);
-  var rows = $('#attributes-1').next().next().find('tr');
+  var doc = window.document;
+  var heading = doc.getElementById('attributes-1');
+  var table = heading.nextElementSibling.nextElementSibling;
+  var rows = table.getElementsByTagName('tr');
   var position = 0;
   var length = rows.length;
   var name;
   var elements;
 
   while (++position < length) {
-    name = $(rows[position].children[0]).text().trim();
-    elements = $(rows[position].children[1]).text().trim();
+    name = rows[position].children[0].textContent.trim();
+    elements = rows[position].children[1].textContent.trim();
 
     if (/HTML elements/.test(elements)) {
       elements = ['*'];
@@ -86,19 +88,18 @@ load(w3c, function (err, doc) {
 });
 
 /* Crawl WHATWG HTML 5. */
-load(whatwg, function (err, doc) {
+jsdom.env('https://html.spec.whatwg.org/multipage/indices.html', function (err, window) {
   bail(err);
 
-  var $ = cheerio.load(doc);
-  var rows = $('#attributes-1 tbody tr');
+  var rows = window.document.querySelectorAll('#attributes-1 tbody tr');
   var position = 0;
   var length = rows.length;
   var name;
   var elements;
 
   while (++position < length) {
-    name = $(rows[position].children[0]).text().trim();
-    elements = $(rows[position].children[1]).text().trim();
+    name = rows[position].children[0].textContent.trim();
+    elements = rows[position].children[1].textContent.trim();
 
     if (/HTML elements/.test(elements)) {
       elements = ['*'];
@@ -112,28 +113,20 @@ load(whatwg, function (err, doc) {
   done();
 });
 
-/* Load. */
-function load(url, callback) {
-  https.get(url, function (res) {
-    res
-      .pipe(concat(function (buf) {
-        callback(null, buf);
-      }))
-      .on('error', callback);
-  });
-}
-
-/**
- * Generate the map.
- */
+/* Generate the map. */
 function done() {
+  var result;
+
   counter++;
 
   if (counter !== expect) {
     return;
   }
 
-  Object.keys(map).forEach(function (key) {
+  result = {};
+
+  Object.keys(map).sort().forEach(function (key) {
+    result[key] = map[key];
     map[key] = map[key].sort();
 
     if (key === '*') {
@@ -149,7 +142,7 @@ function done() {
     }
   });
 
-  fs.writeFile(output, JSON.stringify(map, 0, 2) + '\n', bail);
+  fs.writeFile('index.json', JSON.stringify(result, 0, 2) + '\n', bail);
 }
 
 function add(name) {

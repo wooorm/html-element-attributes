@@ -27,9 +27,9 @@
   "devDependencies": {
     "bail": "^1.0.0",
     "browserify": "^13.0.0",
-    "cheerio": "^0.20.0",
-    "concat-stream": "^1.5.2",
     "esmangle": "^1.0.1",
+    "hast-util-is-event-handler": "^1.0.0",
+    "jsdom": "^9.8.3",
     "nyc": "^8.4.0",
     "remark-cli": "^2.1.0",
     "remark-preset-wooorm": "^1.0.0",
