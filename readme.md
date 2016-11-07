@@ -22,15 +22,9 @@ globals module, [uncompressed and compressed][releases].
 
 ## Usage
 
-Dependencies:
-
 ```javascript
 var htmlElementAttributes = require('html-element-attributes');
-```
 
-Global attributes:
-
-```javascript
 var globals = htmlElementAttributes['*'];
 ```
 

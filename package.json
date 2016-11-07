@@ -31,11 +31,9 @@
     "bail": "^1.0.0",
     "browserify": "^13.0.0",
     "cheerio": "^0.20.0",
-    "eslint": "^2.0.0",
+    "concat-stream": "^1.5.2",
     "esmangle": "^1.0.1",
     "istanbul": "^0.4.0",
-    "jscs": "^2.0.0",
-    "jscs-jsdoc": "^1.0.0",
     "remark": "^4.0.0",
     "remark-comment-config": "^3.0.0",
     "remark-github": "^4.0.1",
@@ -43,7 +41,8 @@
     "remark-usage": "^3.0.0",
     "remark-validate-links": "^3.0.0",
     "tape": "^4.4.0",
-    "trim": "0.0.1"
+    "trim": "0.0.1",
+    "xo": "^0.17.0"
   },
   "scripts": {
     "build-md": "remark . --quiet --frail",
@@ -51,11 +50,15 @@
     "build-bundle": "browserify index.js --bare -s htmlElementAttributes > html-element-attributes.js",
     "build-mangle": "esmangle html-element-attributes.js > html-element-attributes.min.js",
     "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
-    "lint-api": "eslint .",
-    "lint-style": "jscs --reporter inline .",
-    "lint": "npm run lint-api && npm run lint-style",
+    "lint": "xo",
     "test-api": "node test.js",
     "test-coverage": "istanbul cover test.js",
     "test": "npm run build && npm run lint && npm run test-coverage"
+  },
+  "xo": {
+    "space": true,
+    "ignores": [
+      "html-element-attributes.js"
+    ]
   }
 }

@@ -1,41 +1,43 @@
-/**
- * @author Titus Wormer
- * @copyright 2016 Titus Wormer
- * @license MIT
- * @module html-element-attributes
- * @fileoverview Test suite for `html-element-attributes`.
- */
-
 'use strict';
 
-/* eslint-env node */
-
-/*
- * Module dependencies.
- */
-
+/* Dependencies. */
+var assert = require('assert');
 var test = require('tape');
 var htmlElementAttributes = require('./index.js');
 
-/*
- * Tests.
- */
-
+/* Tests. */
 test('htmlElementAttributes', function (t) {
-    var tagName;
+  t.equal(
+    typeof htmlElementAttributes,
+    'object',
+    'should be an `object`'
+  );
 
-    t.equal(
-        typeof htmlElementAttributes,
-        'object',
-        'should be an `object`'
-    );
+  t.doesNotThrow(
+    function () {
+      Object.keys(htmlElementAttributes).forEach(function (name) {
+        assert.ok(Array.isArray(htmlElementAttributes[name]), name);
+      });
+    },
+    'values should be array'
+  );
 
-    for (tagName in htmlElementAttributes) {
-        t.ok(
-            Array.isArray(htmlElementAttributes[tagName]),
-            '`' + tagName + '` should be an `array`'
-        );
-    }
+  t.doesNotThrow(
+    function () {
+      Object.keys(htmlElementAttributes).forEach(function (name) {
+        var props = htmlElementAttributes[name];
 
-    t.end();
+        props.forEach(function (prop) {
+          var label = prop + ' in ' + name;
+          assert.ok(typeof prop, 'string', label + ' should be string');
+          assert.equal(prop, prop.toLowerCase(), label + ' should be lower-case');
+          assert.equal(prop, prop.trim(), label + ' should be trimmed');
+          assert.ok(/^[a-z-]+$/.test(prop), label + ' should be `a-z-`');
+        });
+      });
+    },
+    'name should be lower-case, alphabetical strings'
+  );
+
+  t.end();
 });
