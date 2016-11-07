@@ -17,9 +17,6 @@ and WHATWG HTML 5.
 npm install html-element-attributes
 ```
 
-**html-element-attributes** is also available as an AMD, CommonJS, and
-globals module, [uncompressed and compressed][releases].
-
 ## Usage
 
 ```javascript
@@ -90,8 +87,6 @@ attributes which apply to all HTML elements.
 [coverage-page]: https://codecov.io/github/wooorm/html-element-attributes?branch=master
 
 [npm]: https://docs.npmjs.com/cli/install
-
-[releases]: https://github.com/wooorm/html-element-attributes/releases
 
 [license]: LICENSE
 
