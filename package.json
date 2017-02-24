@@ -30,14 +30,14 @@
     "esmangle": "^1.0.1",
     "hast-util-is-event-handler": "^1.0.0",
     "jsdom": "^9.8.3",
-    "remark-cli": "^2.1.0",
-    "remark-preset-wooorm": "^1.0.0",
+    "remark-cli": "^3.0.0",
+    "remark-preset-wooorm": "^2.0.0",
     "tape": "^4.4.0",
     "trim": "0.0.1",
     "xo": "^0.17.0"
   },
   "scripts": {
-    "build-md": "remark . --quiet --frail --output",
+    "build-md": "remark . -qfo",
     "build-crawl": "node build",
     "build-bundle": "browserify index.json --bare -s htmlElementAttributes > html-element-attributes.js",
     "build-mangle": "esmangle html-element-attributes.js > html-element-attributes.min.js",
@@ -53,6 +53,6 @@
     ]
   },
   "remarkConfig": {
-    "presets": "wooorm"
+    "plugins": ["preset-wooorm"]
   }
 }
