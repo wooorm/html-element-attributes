@@ -12,7 +12,8 @@ var map = require('./');
 var globals = map['*'];
 
 if (!globals) {
-  globals = map['*'] = [];
+  globals = [];
+  map['*'] = globals;
 }
 
 var counter = 0;
