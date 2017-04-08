@@ -6,7 +6,6 @@
     "contextmenu",
     "dir",
     "draggable",
-    "dropzone",
     "hidden",
     "id",
     "is",
@@ -118,7 +117,6 @@
     "formmethod",
     "formnovalidate",
     "formtarget",
-    "menu",
     "name",
     "tabindex",
     "type",
@@ -247,6 +245,7 @@
   "iframe": [
     "align",
     "allowfullscreen",
+    "allowpaymentrequest",
     "allowusermedia",
     "frameborder",
     "height",
@@ -350,6 +349,7 @@
   "link": [
     "as",
     "charset",
+    "color",
     "crossorigin",
     "href",
     "hreflang",
@@ -359,10 +359,13 @@
     "referrerpolicy",
     "rel",
     "rev",
+    "scope",
     "sizes",
     "target",
     "title",
-    "type"
+    "type",
+    "usecache",
+    "workertype"
   ],
   "map": [
     "name"
@@ -465,6 +468,7 @@
     "defer",
     "integrity",
     "language",
+    "nomodule",
     "nonce",
     "src",
     "type"
