@@ -1,9 +1,14 @@
 'use strict';
 
 var fs = require('fs');
-var jsdom = require('jsdom');
+var https = require('https');
+var concat = require('concat-stream');
 var trim = require('trim');
 var bail = require('bail');
+var unified = require('unified');
+var html = require('rehype-parse');
+var q = require('hast-util-select');
+var toString = require('hast-util-to-string');
 var ev = require('hast-util-is-event-handler');
 var map = require('./');
 
@@ -19,98 +24,88 @@ var counter = 0;
 var expect = 3;
 
 /* Crawl HTML 4. */
-jsdom.env('https://www.w3.org/TR/html4/index/attributes.html', function (err, window) {
-  bail(err);
+https.get('https://www.w3.org/TR/html4/index/attributes.html', function (res) {
+  res.pipe(concat(onconcat)).on('error', bail);
 
-  var rows = window.document.querySelectorAll('table tr');
-  var position = -1;
-  var length = rows.length;
-  var node;
-  var name;
-  var elements;
-  map = {};
+  function onconcat(buf) {
+    q.selectAll('table tr', unified().use(html).parse(buf)).forEach(each);
 
-  while (++position < length) {
-    node = rows[position];
-    name = node.querySelector('[title="Name"]');
-    elements = node.querySelector('[title="Related Elements"]');
+    done();
 
-    if (!name || !elements) {
-      continue;
+    function each(node) {
+      var name = q.select('[title="Name"]', node);
+      var elements = q.select('[title="Related Elements"]', node);
+
+      if (!name || !elements) {
+        return;
+      }
+
+      name = trim(toString(name));
+      elements = toString(elements);
+
+      if (!name || ev(name)) {
+        return;
+      }
+
+      if (/All elements/.test(elements)) {
+        elements = ['*'];
+      } else {
+        elements = elements.split(/,/g);
+      }
+
+      elements.forEach(add(name));
     }
-
-    name = trim(name.textContent);
-    elements = elements.textContent;
-
-    if (!name || ev(name)) {
-      continue;
-    }
-
-    if (/All elements/.test(elements)) {
-      elements = ['*'];
-    } else {
-      elements = elements.split(/,/g);
-    }
-
-    elements.forEach(add(name));
   }
-
-  done();
 });
 
 /* Crawl W3C HTML 5. */
-jsdom.env('https://www.w3.org/TR/html5/index.html', function (err, window) {
-  bail(err);
+https.get('https://www.w3.org/TR/html5/index.html', function (res) {
+  res.pipe(concat(onconcat)).on('error', bail);
 
-  var doc = window.document;
-  var heading = doc.getElementById('attributes-1');
-  var table = heading.nextElementSibling.nextElementSibling;
-  var rows = table.getElementsByTagName('tr');
-  var position = 0;
-  var length = rows.length;
-  var name;
-  var elements;
+  function onconcat(buf) {
+    var table = q.select('#attributes-1 ~ table', unified().use(html).parse(buf));
 
-  while (++position < length) {
-    name = rows[position].children[0].textContent.trim();
-    elements = rows[position].children[1].textContent.trim();
+    q.selectAll('tr:not(:first-child)', table).forEach(each);
 
-    if (/HTML elements/.test(elements)) {
-      elements = ['*'];
-    } else {
-      elements = elements.split(/;/g).map(trim);
+    done();
+
+    function each(node) {
+      var name = toString(node.children[0]).trim();
+      var elements = toString(node.children[1]).trim();
+
+      if (/HTML elements/.test(elements)) {
+        elements = ['*'];
+      } else {
+        elements = elements.split(/;/g).map(trim);
+      }
+
+      elements.forEach(add(name));
     }
-
-    elements.forEach(add(name));
   }
-
-  done();
 });
 
-/* Crawl WHATWG HTML 5. */
-jsdom.env('https://html.spec.whatwg.org/multipage/indices.html', function (err, window) {
-  bail(err);
+/* Crawl WHATWG HTML. */
+https.get('https://www.w3.org/TR/html5/index.html', function (res) {
+  res.pipe(concat(onconcat)).on('error', bail);
 
-  var rows = window.document.querySelectorAll('#attributes-1 tbody tr');
-  var position = 0;
-  var length = rows.length;
-  var name;
-  var elements;
+  function onconcat(buf) {
+    q.selectAll('#attributes-1 tbody tr:not(:first-child)', unified().use(html).parse(buf)).forEach(each);
 
-  while (++position < length) {
-    name = rows[position].children[0].textContent.trim();
-    elements = rows[position].children[1].textContent.trim();
+    done();
 
-    if (/HTML elements/.test(elements)) {
-      elements = ['*'];
-    } else {
-      elements = elements.split(/;/g).map(trim);
+    function each(node) {
+      var name = toString(node.children[0]).trim();
+      var elements = toString(node.children[1]).trim();
+
+      if (/HTML elements/.test(elements)) {
+        elements = ['*'];
+      } else {
+        elements = elements.split(/;/g).map(trim);
+      }
+
+      elements.forEach(add(name));
     }
-
-    elements.forEach(add(name));
   }
-
-  done();
 });
 
 /* Generate the map. */
