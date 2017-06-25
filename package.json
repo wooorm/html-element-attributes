@@ -31,7 +31,7 @@
     "hast-util-is-event-handler": "^1.0.0",
     "jsdom": "^9.8.3",
     "remark-cli": "^3.0.0",
-    "remark-preset-wooorm": "^2.0.0",
+    "remark-preset-wooorm": "^3.0.0",
     "tape": "^4.4.0",
     "trim": "0.0.1",
     "xo": "^0.18.0"
