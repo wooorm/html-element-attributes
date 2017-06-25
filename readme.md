@@ -22,7 +22,8 @@ npm install html-element-attributes
 ```javascript
 var htmlElementAttributes = require('html-element-attributes');
 
-var globals = htmlElementAttributes['*'];
+console.log(htmlElementAttributes['*']);
+console.log(htmlElementAttributes.ol);
 ```
 
 Yields:
@@ -50,17 +51,6 @@ Yields:
   'tabindex',
   'title',
   'translate' ]
-```
-
-Attributes on the `ol` element:
-
-```javascript
-var ol = htmlElementAttributes.ol;
-```
-
-Yields:
-
-```js
 [ 'compact', 'reversed', 'start', 'type' ]
 ```
 
