@@ -1,11 +1,9 @@
 'use strict';
 
-/* Dependencies. */
 var assert = require('assert');
 var test = require('tape');
 var htmlElementAttributes = require('./');
 
-/* Tests. */
 test('htmlElementAttributes', function (t) {
   t.equal(
     typeof htmlElementAttributes,

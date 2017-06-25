@@ -1,6 +1,5 @@
 'use strict';
 
-/* Dependencies. */
 var fs = require('fs');
 var jsdom = require('jsdom');
 var trim = require('trim');
