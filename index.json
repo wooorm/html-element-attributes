@@ -3,7 +3,6 @@
     "accesskey",
     "class",
     "contenteditable",
-    "contextmenu",
     "dir",
     "draggable",
     "hidden",
@@ -364,26 +363,14 @@
     "target",
     "title",
     "type",
-    "usecache",
+    "updateviacache",
     "workertype"
   ],
   "map": [
     "name"
   ],
   "menu": [
-    "compact",
-    "label",
-    "type"
-  ],
-  "menuitem": [
-    "checked",
-    "default",
-    "disabled",
-    "icon",
-    "label",
-    "radiogroup",
-    "title",
-    "type"
+    "compact"
   ],
   "meta": [
     "charset",
