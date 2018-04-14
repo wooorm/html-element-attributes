@@ -13,7 +13,7 @@
     "w3c",
     "whatwg"
   ],
-  "repository": "https://github.com/wooorm/html-element-attributes",
+  "repository": "wooorm/html-element-attributes",
   "bugs": "https://github.com/wooorm/html-element-attributes/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
   "contributors": [
