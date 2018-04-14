@@ -2,7 +2,7 @@
 
 var assert = require('assert');
 var test = require('tape');
-var htmlElementAttributes = require('./');
+var htmlElementAttributes = require('.');
 
 test('htmlElementAttributes', function (t) {
   t.equal(

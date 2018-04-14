@@ -10,7 +10,7 @@ var html = require('rehype-parse');
 var q = require('hast-util-select');
 var toString = require('hast-util-to-string');
 var ev = require('hast-util-is-event-handler');
-var map = require('./');
+var map = require('.');
 
 /* Global attributes. */
 var globals = map['*'];
