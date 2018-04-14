@@ -20,10 +20,10 @@ npm install html-element-attributes
 ## Usage
 
 ```javascript
-var htmlElementAttributes = require('html-element-attributes');
+var htmlElementAttributes = require('html-element-attributes')
 
-console.log(htmlElementAttributes['*']);
-console.log(htmlElementAttributes.ol);
+console.log(htmlElementAttributes['*'])
+console.log(htmlElementAttributes.ol)
 ```
 
 Yields:
