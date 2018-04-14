@@ -3,19 +3,12 @@ node_js:
 - '4.0'
 - '8.0'
 deploy:
-  - provider: npm
-    email: tituswormer@gmail.com
-    api_key:
-      secure: L0Wyb0HJGwNXQhQaNELxeI6QMcqzzMD49mpnHYL2JVFyP3pcgREhQyqL9QIasE2FNAzCAFBpeU5v4Cb8DAmtrVoVV6lZbOyG7gTCilZc83lzkKjlqsEnqv98PHTWq08UdOouUSiGILWsfGmhTG+sQH3MVKEo9Va+SBDkNnsDgDnDc+mNNOUYEHht0P6kOoECmD3xGfDdiZN/EztLFa3IFNog4Cl7f9VbjBUjGQYtHCOI2BFkRzct8UvuJPm2hypqyWSyRtlaawejk0d+m9XxlzUqrvUu0rkp8YUZ6lBJdB5vTEMPJ4CErUoPx/nJCj48jLNZkHDAfBYvfMcpGtBoNVYZoRlg0JEnqR5uUCcmHtyx2rFNOyvmJtsOOkhSPJ3U9BUWHzdLns1FPA4pPm/XGaJRcZrwWKqqoKTsRsGS3Xscmo9j7XB56eAB1Ib80VxxqmsODfLkeLGQXLArj4mYxrrrCyyB25qmLYLdSyM31jcZNoj3iS3xovi8EMFIAy154AVLJZjzaOs77WpPKZSKqivFSsKTeEatDzCFsA2uEW8uQ5FnCU+8AgoDo1+5e5t4dEBdjRqzNVQ6Pso1S/VLl3x4kelY2IZVl5LyhV81nVgMi5UzfD8632LfMFPFQTvNbmd602kG73eNAwINzBrRT5nWU69+MzHsRgvKyH+9f34=
-    on:
-      tags: true
-      node: '4.0'
-  - provider: releases
-    api_key:
-      secure: EGqPpfMlbXxzWu4O6s0+9iGRsGNhbgNdu4HP+a72kTy+zxoEAe0dES7iegYwfHT9IGAKpiL678nonV8p76bPlr6DqOhErEoX2AgDsrcuV3mhZmtQluFxEzLMWV7te25o5640UNxX7ft+lVNOwANS9HqHz6D6iejMtseducCgeA0rIM+HW1koSH7TMLclHTcBPm1TokEpWt6MMFmKrA3mUFyX3eMIkJ4SKaBE3bbQzegWoTttnJ6bQuMzMc8BGZo54Jm96FV66AFepy/AxC63pfxy/HaEBrRSSK1Be1t4tG7iRztblUD1uaYoj39stQge9X6dfrZdfAWc0nrNjYU6bcn+2ukl0IrebbTKMyZRstnWrKSCnh+1ZCO36DsOGCJ/4Yt70EkyWRwi30HNYtqsMm2QjEp5Vok6iJFpRWgtx4nUWFRpQd1xz2JjYNlEgtiNnAPVEOAFOLfuZ2KJdpOQrkt60lv93FXAp3djIkO0v+vdFUGWaRj+Wbm0DoNln5QZeghyWRHGrZgLOvOs9FKjc/7LGYOPjdoRYuOFGZbNF7LTllllx0QEiDzUYOiQNmNpkPF+pbhlxhC1gr5DP6/AT/KjUQgX6de2lubXvYqgZvH6zlqgvMt27lgcz+DfTjRMm1XlIQcj9VzESY+fmQb2sk8sq4zGWqw2e6KgrUoq77U=
-    file:
-      - "html-element-attributes.js"
-      - "html-element-attributes.min.js"
-    on:
-      tags: true
-      node: '8.0'
+  provider: releases
+  api_key:
+    secure: EGqPpfMlbXxzWu4O6s0+9iGRsGNhbgNdu4HP+a72kTy+zxoEAe0dES7iegYwfHT9IGAKpiL678nonV8p76bPlr6DqOhErEoX2AgDsrcuV3mhZmtQluFxEzLMWV7te25o5640UNxX7ft+lVNOwANS9HqHz6D6iejMtseducCgeA0rIM+HW1koSH7TMLclHTcBPm1TokEpWt6MMFmKrA3mUFyX3eMIkJ4SKaBE3bbQzegWoTttnJ6bQuMzMc8BGZo54Jm96FV66AFepy/AxC63pfxy/HaEBrRSSK1Be1t4tG7iRztblUD1uaYoj39stQge9X6dfrZdfAWc0nrNjYU6bcn+2ukl0IrebbTKMyZRstnWrKSCnh+1ZCO36DsOGCJ/4Yt70EkyWRwi30HNYtqsMm2QjEp5Vok6iJFpRWgtx4nUWFRpQd1xz2JjYNlEgtiNnAPVEOAFOLfuZ2KJdpOQrkt60lv93FXAp3djIkO0v+vdFUGWaRj+Wbm0DoNln5QZeghyWRHGrZgLOvOs9FKjc/7LGYOPjdoRYuOFGZbNF7LTllllx0QEiDzUYOiQNmNpkPF+pbhlxhC1gr5DP6/AT/KjUQgX6de2lubXvYqgZvH6zlqgvMt27lgcz+DfTjRMm1XlIQcj9VzESY+fmQb2sk8sq4zGWqw2e6KgrUoq77U=
+  file:
+    - "html-element-attributes.js"
+    - "html-element-attributes.min.js"
+  on:
+    tags: true
+    node: '8.0'
