@@ -1,9 +1,10 @@
 language: node_js
 node_js:
-- '4.0'
-- '8.0'
+- lts/boron
+- node
 deploy:
   provider: releases
+  skip_cleanup: true
   api_key:
     secure: EGqPpfMlbXxzWu4O6s0+9iGRsGNhbgNdu4HP+a72kTy+zxoEAe0dES7iegYwfHT9IGAKpiL678nonV8p76bPlr6DqOhErEoX2AgDsrcuV3mhZmtQluFxEzLMWV7te25o5640UNxX7ft+lVNOwANS9HqHz6D6iejMtseducCgeA0rIM+HW1koSH7TMLclHTcBPm1TokEpWt6MMFmKrA3mUFyX3eMIkJ4SKaBE3bbQzegWoTttnJ6bQuMzMc8BGZo54Jm96FV66AFepy/AxC63pfxy/HaEBrRSSK1Be1t4tG7iRztblUD1uaYoj39stQge9X6dfrZdfAWc0nrNjYU6bcn+2ukl0IrebbTKMyZRstnWrKSCnh+1ZCO36DsOGCJ/4Yt70EkyWRwi30HNYtqsMm2QjEp5Vok6iJFpRWgtx4nUWFRpQd1xz2JjYNlEgtiNnAPVEOAFOLfuZ2KJdpOQrkt60lv93FXAp3djIkO0v+vdFUGWaRj+Wbm0DoNln5QZeghyWRHGrZgLOvOs9FKjc/7LGYOPjdoRYuOFGZbNF7LTllllx0QEiDzUYOiQNmNpkPF+pbhlxhC1gr5DP6/AT/KjUQgX6de2lubXvYqgZvH6zlqgvMt27lgcz+DfTjRMm1XlIQcj9VzESY+fmQb2sk8sq4zGWqw2e6KgrUoq77U=
   file:
@@ -11,4 +12,3 @@ deploy:
     - "html-element-attributes.min.js"
   on:
     tags: true
-    node: '8.0'
