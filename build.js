@@ -14,7 +14,7 @@ var map = require('.')
 
 var processor = unified().use(html)
 
-/* Global attributes. */
+// Global attributes.
 var globals = map['*']
 
 if (!globals) {
@@ -25,20 +25,27 @@ if (!globals) {
 var counter = 0
 var expect = 3
 
-/* Crawl HTML 4. */
+// Crawl HTML 4.
 https.get('https://www.w3.org/TR/html4/index/attributes.html', onhtml4)
 
-/* Crawl W3C HTML 5. */
-https.get('https://www.w3.org/TR/html5/index.html', onw3chtml5)
+// Crawl W3C HTML 5.
+https.get('https://www.w3.org/TR/html5/fullindex.html', onhtml5)
 
-/* Crawl WHATWG HTML. */
-https.get('https://www.w3.org/TR/html5/index.html', onhtml5)
+// Crawl WHATWG HTML.
+https.get('https://html.spec.whatwg.org/multipage/indices.html', onhtml)
 
 function onhtml4(res) {
   res.pipe(concat(onconcat)).on('error', bail)
 
   function onconcat(buf) {
-    q.selectAll('table tr', processor.parse(buf)).forEach(each)
+    var nodes = q.selectAll('table tr', processor.parse(buf))
+
+    // Throw if we didn’t match, e.g., when the spec updates.
+    if (nodes.length === 0) {
+      throw new Error('Missing results in html4')
+    }
+
+    nodes.forEach(each)
 
     done()
   }
@@ -68,41 +75,49 @@ function onhtml4(res) {
   }
 }
 
-function onw3chtml5(res) {
-  res.pipe(concat(onconcat)).on('error', bail)
-
-  function onconcat(buf) {
-    var table = q.select('#attributes-1 ~ table', processor.parse(buf))
-
-    q.selectAll('tr:not(:first-child)', table).forEach(each)
-
-    done()
-  }
-
-  function each(node) {
-    var name = toString(node.children[0]).trim()
-    var elements = toString(node.children[1]).trim()
-
-    if (/HTML elements/.test(elements)) {
-      elements = ['*']
-    } else {
-      elements = elements.split(/;/g).map(trim)
-    }
-
-    elements.forEach(add(name))
-  }
-}
-
 function onhtml5(res) {
   res.pipe(concat(onconcat)).on('error', bail)
 
   function onconcat(buf) {
-    q
-      .selectAll(
-        '#attributes-1 tbody tr:not(:first-child)',
-        processor.parse(buf)
-      )
-      .forEach(each)
+    var table = q.select('#attributes-table ~ table', processor.parse(buf))
+    var nodes = q.selectAll('tbody tr', table)
+
+    // Throw if we didn’t match, e.g., when the spec updates.
+    if (nodes.length === 0) {
+      throw new Error('Missing results in html5')
+    }
+
+    nodes.forEach(each)
+
+    done()
+  }
+
+  function each(node) {
+    var name = toString(q.select('th', node)).trim()
+    var elements = toString(q.select('td', node)).trim()
+
+    if (/HTML elements/.test(elements)) {
+      elements = ['*']
+    } else {
+      elements = elements.split(/;/g).map(trim)
+    }
+
+    elements.forEach(add(name))
+  }
+}
+
+function onhtml(res) {
+  res.pipe(concat(onconcat)).on('error', bail)
+
+  function onconcat(buf) {
+    var nodes = q.selectAll('#attributes-1 tbody tr', processor.parse(buf))
+
+    // Throw if we didn’t match, e.g., when the spec updates.
+    if (nodes.length === 0) {
+      throw new Error('Missing results in html')
+    }
+
+    nodes.forEach(each)
 
     done()
   }
@@ -120,7 +135,8 @@ function onhtml5(res) {
     elements.forEach(add(name))
   }
 }
-/* Generate the map. */
+
+// Generate the map.
 function done() {
   var result
 
