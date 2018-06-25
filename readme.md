@@ -30,20 +30,10 @@ Yields:
 
 ```js
 [ 'accesskey',
+  'autocapitalize',
   'class',
   'contenteditable',
-  'dir',
-  'draggable',
-  'hidden',
-  'id',
-  'is',
-  'itemid',
-  'itemprop',
-  'itemref',
-  'itemscope',
-  'itemtype',
-  'lang',
-  'slot',
+  // ...
   'spellcheck',
   'style',
   'tabindex',
