@@ -1,12 +1,14 @@
 {
   "*": [
     "accesskey",
+    "autocapitalize",
     "class",
     "contenteditable",
     "dir",
     "draggable",
     "hidden",
     "id",
+    "inputmode",
     "is",
     "itemid",
     "itemprop",
@@ -14,6 +16,7 @@
     "itemscope",
     "itemtype",
     "lang",
+    "nonce",
     "slot",
     "spellcheck",
     "style",
@@ -75,7 +78,6 @@
     "controls",
     "crossorigin",
     "loop",
-    "mediagroup",
     "muted",
     "preload",
     "src"
@@ -264,6 +266,7 @@
     "alt",
     "border",
     "crossorigin",
+    "decoding",
     "height",
     "hspace",
     "ismap",
@@ -294,7 +297,6 @@
     "formnovalidate",
     "formtarget",
     "height",
-    "inputmode",
     "ismap",
     "list",
     "max",
@@ -324,14 +326,6 @@
   "isindex": [
     "prompt"
   ],
-  "keygen": [
-    "autofocus",
-    "challenge",
-    "disabled",
-    "form",
-    "keytype",
-    "name"
-  ],
   "label": [
     "accesskey",
     "for",
@@ -358,13 +352,10 @@
     "referrerpolicy",
     "rel",
     "rev",
-    "scope",
     "sizes",
     "target",
     "title",
-    "type",
-    "updateviacache",
-    "workertype"
+    "type"
   ],
   "map": [
     "name"
@@ -457,6 +448,7 @@
     "language",
     "nomodule",
     "nonce",
+    "referrerpolicy",
     "src",
     "type"
   ],
@@ -528,7 +520,6 @@
     "dirname",
     "disabled",
     "form",
-    "inputmode",
     "maxlength",
     "minlength",
     "name",
@@ -594,7 +585,6 @@
     "crossorigin",
     "height",
     "loop",
-    "mediagroup",
     "muted",
     "playsinline",
     "poster",
