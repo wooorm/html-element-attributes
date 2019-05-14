@@ -64,6 +64,6 @@ attributes which apply to all HTML elements.
 
 [npm]: https://docs.npmjs.com/cli/install
 
-[license]: LICENSE
+[license]: license
 
 [author]: http://wooorm.com
