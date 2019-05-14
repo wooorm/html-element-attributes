@@ -1,4 +1,8 @@
-# html-element-attributes [![Build Status][build-badge]][build-page]
+# html-element-attributes
+
+[![Build][build-badge]][build]
+[![Downloads][downloads-badge]][downloads]
+[![Size][size-badge]][size]
 
 Map of HTML elements to allowed attributes.  Also contains global
 attributes under `'*'`.  Includes attributes from HTML 4, W3C HTML 5,
@@ -60,7 +64,15 @@ attributes which apply to all HTML elements.
 
 [build-badge]: https://img.shields.io/travis/wooorm/html-element-attributes.svg
 
-[build-page]: https://travis-ci.org/wooorm/html-element-attributes
+[build]: https://travis-ci.org/wooorm/html-element-attributes
+
+[downloads-badge]: https://img.shields.io/npm/dm/html-element-attributes.svg
+
+[downloads]: https://www.npmjs.com/package/html-element-attributes
+
+[size-badge]: https://img.shields.io/bundlephobia/minzip/html-element-attributes.svg
+
+[size]: https://bundlephobia.com/result?p=html-element-attributes
 
 [npm]: https://docs.npmjs.com/cli/install
 
