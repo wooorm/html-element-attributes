@@ -43,7 +43,7 @@
   },
   "scripts": {
     "generate": "node build",
-    "format": "remark . -qfo && prettier --write '**/*.js' && xo --fix",
+    "format": "remark . -qfo && prettier --write \"**/*.js\" && xo --fix",
     "build-bundle": "browserify index.json --bare -s htmlElementAttributes > html-element-attributes.js",
     "build-mangle": "esmangle html-element-attributes.js > html-element-attributes.min.js",
     "build": "npm run build-bundle && npm run build-mangle",
