@@ -28,7 +28,6 @@
     "bail": "^1.0.0",
     "browserify": "^16.0.0",
     "concat-stream": "^2.0.0",
-    "esmangle": "^1.0.1",
     "hast-util-is-event-handler": "^1.0.0",
     "hast-util-select": "^3.0.0",
     "hast-util-to-string": "^1.0.0",
@@ -37,6 +36,7 @@
     "remark-cli": "^6.0.0",
     "remark-preset-wooorm": "^4.0.0",
     "tape": "^4.4.0",
+    "tinyify": "^2.5.0",
     "trim": "0.0.1",
     "unified": "^7.0.0",
     "xo": "^0.24.0"
@@ -44,8 +44,8 @@
   "scripts": {
     "generate": "node build",
     "format": "remark . -qfo && prettier --write \"**/*.js\" && xo --fix",
-    "build-bundle": "browserify index.json --bare -s htmlElementAttributes > html-element-attributes.js",
-    "build-mangle": "esmangle html-element-attributes.js > html-element-attributes.min.js",
+    "build-bundle": "browserify index.json -s htmlElementAttributes -o html-element-attributes.js",
+    "build-mangle": "browserify index.json -s htmlElementAttributes -p tinyify -o html-element-attributes.min.js",
     "build": "npm run build-bundle && npm run build-mangle",
     "test-api": "node test",
     "test": "npm run generate && npm run format && npm run build && npm run test-api"
