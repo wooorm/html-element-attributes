@@ -20,8 +20,12 @@ test('htmlElementAttributes', function(t) {
       props.forEach(function(prop) {
         var label = prop + ' in ' + name
         assert.ok(typeof prop, 'string', label + ' should be string')
-        assert.equal(prop, prop.toLowerCase(), label + ' should be lower-case')
-        assert.equal(prop, prop.trim(), label + ' should be trimmed')
+        assert.strictEqual(
+          prop,
+          prop.toLowerCase(),
+          label + ' should be lower-case'
+        )
+        assert.strictEqual(prop, prop.trim(), label + ' should be trimmed')
         assert.ok(/^[a-z-]+$/.test(prop), label + ' should be `a-z-`')
       })
     })
