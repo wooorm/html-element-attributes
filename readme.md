@@ -35,10 +35,9 @@ Yields:
 ```js
 [ 'accesskey',
   'autocapitalize',
+  'autofocus',
   'class',
-  'contenteditable',
   // ...
-  'spellcheck',
   'style',
   'tabindex',
   'title',

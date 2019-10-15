@@ -2,6 +2,7 @@
   "*": [
     "accesskey",
     "autocapitalize",
+    "autofocus",
     "class",
     "contenteditable",
     "dir",
