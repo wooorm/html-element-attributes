@@ -133,7 +133,7 @@ function done() {
     }
 
     map[key] = map[key].filter(function(attribute) {
-      return globals.indexOf(attribute) === -1
+      return !globals.includes(attribute)
     })
 
     if (map[key].length === 0) {
@@ -149,7 +149,7 @@ function add(name) {
     var tagName = element.toLowerCase().trim()
     var attributes = map[tagName] || (map[tagName] = [])
 
-    if (attributes.indexOf(name) === -1) {
+    if (!attributes.includes(name)) {
       attributes.push(name)
     }
   }
