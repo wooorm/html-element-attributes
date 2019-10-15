@@ -23,13 +23,10 @@ if (!globals) {
 }
 
 var counter = 0
-var expect = 3
+var expect = 2
 
 // Crawl HTML 4.
 https.get('https://www.w3.org/TR/html4/index/attributes.html', onhtml4)
-
-// Crawl W3C HTML 5.
-https.get('https://www.w3.org/TR/html5/fullindex.html', onhtml5)
 
 // Crawl WHATWG HTML.
 https.get('https://html.spec.whatwg.org/multipage/indices.html', onhtml)
@@ -69,37 +66,6 @@ function onhtml4(res) {
       elements = ['*']
     } else {
       elements = elements.split(/,/g)
-    }
-
-    elements.forEach(add(name))
-  }
-}
-
-function onhtml5(res) {
-  res.pipe(concat(onconcat)).on('error', bail)
-
-  function onconcat(buf) {
-    var table = q.select('#attributes-table ~ table', processor.parse(buf))
-    var nodes = q.selectAll('tbody tr', table)
-
-    // Throw if we didn’t match, e.g., when the spec updates.
-    if (nodes.length === 0) {
-      throw new Error('Missing results in html5')
-    }
-
-    nodes.forEach(each)
-
-    done()
-  }
-
-  function each(node) {
-    var name = toString(q.select('th', node)).trim()
-    var elements = toString(q.select('td', node)).trim()
-
-    if (/HTML elements/.test(elements)) {
-      elements = ['*']
-    } else {
-      elements = elements.split(/;/g).map(trim)
     }
 
     elements.forEach(add(name))

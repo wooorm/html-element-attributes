@@ -4,14 +4,14 @@
 [![Downloads][downloads-badge]][downloads]
 [![Size][size-badge]][size]
 
-Map of HTML elements to allowed attributes.  Also contains global
-attributes under `'*'`.  Includes attributes from HTML 4, W3C HTML 5,
-and WHATWG HTML 5.
+Map of HTML elements to allowed attributes.
+Also contains global attributes under `'*'`.
+Includes attributes from HTML 4 and HTML (the WHATWG living standard).
 
 > **Note**: Includes deprecated attributes.
 >
-> **Note**: Attributes which were not global in HTML 4 but are in
-> HTML 5, are only included in the list of global attributes.
+> **Note**: Attributes which were not global in HTML 4 but are in HTML, are only
+> included in the list of global attributes.
 
 ## Installation
 
