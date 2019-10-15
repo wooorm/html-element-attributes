@@ -92,6 +92,10 @@ function onhtml(res) {
     var name = toString(node.children[0]).trim()
     var elements = toString(node.children[1]).trim()
 
+    if (/custom elements/i.test(elements)) {
+      return
+    }
+
     if (/HTML elements/.test(elements)) {
       elements = ['*']
     } else {
