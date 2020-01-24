@@ -3,7 +3,6 @@
 var fs = require('fs')
 var https = require('https')
 var concat = require('concat-stream')
-var trim = require('trim')
 var bail = require('bail')
 var unified = require('unified')
 var html = require('rehype-parse')
@@ -55,7 +54,7 @@ function onhtml4(res) {
       return
     }
 
-    name = trim(toString(name))
+    name = toString(name).trim()
     elements = toString(elements)
 
     if (!name || ev(name)) {
@@ -99,7 +98,7 @@ function onhtml(res) {
     if (/HTML elements/.test(elements)) {
       elements = ['*']
     } else {
-      elements = elements.split(/;/g).map(trim)
+      elements = elements.split(/;/g).map(d => d.trim())
     }
 
     elements.forEach(add(name))
