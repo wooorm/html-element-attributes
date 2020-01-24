@@ -13,17 +13,17 @@ Includes attributes from HTML 4 and HTML (the WHATWG living standard).
 > **Note**: Attributes which were not global in HTML 4 but are in HTML, are only
 > included in the list of global attributes.
 
-## Installation
+## Install
 
 [npm][]:
 
-```bash
+```sh
 npm install html-element-attributes
 ```
 
-## Usage
+## Use
 
-```javascript
+```js
 var htmlElementAttributes = require('html-element-attributes')
 
 console.log(htmlElementAttributes['*'])
@@ -54,6 +54,23 @@ lower-case attribute names.
 
 The object contains one special key: `'*'`, which contains global
 attributes which apply to all HTML elements.
+
+## Related
+
+*   [`web-namespaces`](https://github.com/wooorm/web-namespaces)
+    — List of web namespaces
+*   [`html-tag-names`](https://github.com/wooorm/html-tag-names)
+    — List of HTML tags
+*   [`mathml-tag-names`](https://github.com/wooorm/mathml-tag-names)
+    — List of MathML tags
+*   [`svg-tag-names`](https://github.com/wooorm/svg-tag-names)
+    — List of SVG tags
+*   [`html-void-elements`](https://github.com/wooorm/html-void-elements)
+    — List of void HTML tag-names
+*   [`svg-element-attributes`](https://github.com/wooorm/svg-element-attributes)
+    — Map of SVG elements to allowed attributes
+*   [`aria-attributes`](https://github.com/wooorm/aria-attributes)
+    — List of ARIA attributes
 
 ## License
 
