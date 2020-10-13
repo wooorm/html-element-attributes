@@ -30,8 +30,8 @@ https.get('https://www.w3.org/TR/html4/index/attributes.html', onhtml4)
 // Crawl WHATWG HTML.
 https.get('https://html.spec.whatwg.org/multipage/indices.html', onhtml)
 
-function onhtml4(res) {
-  res.pipe(concat(onconcat)).on('error', bail)
+function onhtml4(response) {
+  response.pipe(concat(onconcat)).on('error', bail)
 
   function onconcat(buf) {
     var nodes = q.selectAll('table tr', processor.parse(buf))
@@ -71,8 +71,8 @@ function onhtml4(res) {
   }
 }
 
-function onhtml(res) {
-  res.pipe(concat(onconcat)).on('error', bail)
+function onhtml(response) {
+  response.pipe(concat(onconcat)).on('error', bail)
 
   function onconcat(buf) {
     var nodes = q.selectAll('#attributes-1 tbody tr', processor.parse(buf))
@@ -98,7 +98,7 @@ function onhtml(res) {
     if (/HTML elements/.test(elements)) {
       elements = ['*']
     } else {
-      elements = elements.split(/;/g).map(d => d.trim())
+      elements = elements.split(/;/g).map((d) => d.trim())
     }
 
     elements.forEach(add(name))
@@ -117,9 +117,7 @@ function done() {
 
   result = {}
 
-  Object.keys(map)
-    .sort()
-    .forEach(each)
+  Object.keys(map).sort().forEach(each)
 
   fs.writeFile('index.json', JSON.stringify(result, 0, 2) + '\n', bail)
 
@@ -131,7 +129,7 @@ function done() {
       return
     }
 
-    map[key] = map[key].filter(function(attribute) {
+    map[key] = map[key].filter(function (attribute) {
       return !globals.includes(attribute)
     })
 
