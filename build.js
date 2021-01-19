@@ -61,11 +61,7 @@ function onhtml4(response) {
       return
     }
 
-    if (/All elements/.test(elements)) {
-      elements = ['*']
-    } else {
-      elements = elements.split(/,/g)
-    }
+    elements = /All elements/.test(elements) ? ['*'] : elements.split(/,/g)
 
     elements.forEach(add(name))
   }
@@ -95,11 +91,9 @@ function onhtml(response) {
       return
     }
 
-    if (/HTML elements/.test(elements)) {
-      elements = ['*']
-    } else {
-      elements = elements.split(/;/g).map((d) => d.trim())
-    }
+    elements = /HTML elements/.test(elements)
+      ? ['*']
+      : elements.split(/;/g).map((d) => d.trim())
 
     elements.forEach(add(name))
   }
