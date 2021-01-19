@@ -78,9 +78,9 @@ attributes which apply to all HTML elements.
 
 <!-- Definition -->
 
-[build-badge]: https://img.shields.io/travis/wooorm/html-element-attributes.svg
+[build-badge]: https://github.com/wooorm/html-element-attributes/workflows/main/badge.svg
 
-[build]: https://travis-ci.org/wooorm/html-element-attributes
+[build]: https://github.com/wooorm/html-element-attributes/actions
 
 [downloads-badge]: https://img.shields.io/npm/dm/html-element-attributes.svg
 
