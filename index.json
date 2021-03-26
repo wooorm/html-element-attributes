@@ -27,7 +27,6 @@
     "translate"
   ],
   "a": [
-    "accesskey",
     "charset",
     "coords",
     "download",
@@ -39,12 +38,8 @@
     "rel",
     "rev",
     "shape",
-    "tabindex",
     "target",
     "type"
-  ],
-  "abbr": [
-    "title"
   ],
   "applet": [
     "align",
@@ -60,7 +55,6 @@
     "width"
   ],
   "area": [
-    "accesskey",
     "alt",
     "coords",
     "download",
@@ -71,7 +65,6 @@
     "referrerpolicy",
     "rel",
     "shape",
-    "tabindex",
     "target",
     "type"
   ],
@@ -93,9 +86,6 @@
     "face",
     "size"
   ],
-  "bdo": [
-    "dir"
-  ],
   "blockquote": [
     "cite"
   ],
@@ -111,8 +101,6 @@
     "clear"
   ],
   "button": [
-    "accesskey",
-    "autofocus",
     "disabled",
     "form",
     "formaction",
@@ -121,7 +109,6 @@
     "formnovalidate",
     "formtarget",
     "name",
-    "tabindex",
     "type",
     "value"
   ],
@@ -157,9 +144,6 @@
   ],
   "details": [
     "open"
-  ],
-  "dfn": [
-    "title"
   ],
   "dialog": [
     "open"
@@ -287,11 +271,9 @@
   ],
   "input": [
     "accept",
-    "accesskey",
     "align",
     "alt",
     "autocomplete",
-    "autofocus",
     "checked",
     "dirname",
     "disabled",
@@ -317,8 +299,6 @@
     "size",
     "src",
     "step",
-    "tabindex",
-    "title",
     "type",
     "usemap",
     "value",
@@ -332,12 +312,10 @@
     "prompt"
   ],
   "label": [
-    "accesskey",
     "for",
     "form"
   ],
   "legend": [
-    "accesskey",
     "align"
   ],
   "li": [
@@ -356,13 +334,11 @@
     "imagesrcset",
     "integrity",
     "media",
-    "nonce",
     "referrerpolicy",
     "rel",
     "rev",
     "sizes",
     "target",
-    "title",
     "type"
   ],
   "map": [
@@ -400,7 +376,6 @@
     "hspace",
     "name",
     "standby",
-    "tabindex",
     "type",
     "typemustmatch",
     "usemap",
@@ -455,36 +430,33 @@
     "integrity",
     "language",
     "nomodule",
-    "nonce",
     "referrerpolicy",
     "src",
     "type"
   ],
   "select": [
     "autocomplete",
-    "autofocus",
     "disabled",
     "form",
     "multiple",
     "name",
     "required",
-    "size",
-    "tabindex"
+    "size"
   ],
   "slot": [
     "name"
   ],
   "source": [
+    "height",
     "media",
     "sizes",
     "src",
     "srcset",
-    "type"
+    "type",
+    "width"
   ],
   "style": [
     "media",
-    "nonce",
-    "title",
     "type"
   ],
   "table": [
@@ -521,9 +493,7 @@
     "width"
   ],
   "textarea": [
-    "accesskey",
     "autocomplete",
-    "autofocus",
     "cols",
     "dirname",
     "disabled",
@@ -535,7 +505,6 @@
     "readonly",
     "required",
     "rows",
-    "tabindex",
     "wrap"
   ],
   "tfoot": [
