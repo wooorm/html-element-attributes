@@ -1,6 +1,7 @@
 # html-element-attributes
 
 [![Build][build-badge]][build]
+[![Coverage][coverage-badge]][coverage]
 [![Downloads][downloads-badge]][downloads]
 [![Size][size-badge]][size]
 
@@ -15,6 +16,9 @@ Includes attributes from HTML 4 and HTML (the WHATWG living standard).
 
 ## Install
 
+This package is ESM only: Node 12+ is needed to use it and it must be `import`ed
+instead of `require`d.
+
 [npm][]:
 
 ```sh
@@ -24,7 +28,7 @@ npm install html-element-attributes
 ## Use
 
 ```js
-var htmlElementAttributes = require('html-element-attributes')
+import {htmlElementAttributes} from 'html-element-attributes'
 
 console.log(htmlElementAttributes['*'])
 console.log(htmlElementAttributes.ol)
@@ -47,13 +51,16 @@ Yields:
 
 ## API
 
+This package exports the following identifiers: `htmlElementAttributes`.
+There is no default export.
+
 ### `htmlElementAttributes`
 
-`Object.<Array.<string>>` — Map of lower-case tag-names to an array of
-lower-case attribute names.
+`Object.<string, string[]>` — Map of lowercase tag names to an array of
+lowercase attribute names.
 
 The object contains one special key: `'*'`, which contains global
-attributes which apply to all HTML elements.
+attributes that apply to all HTML elements.
 
 ## Related
 
@@ -81,6 +88,10 @@ attributes which apply to all HTML elements.
 [build-badge]: https://github.com/wooorm/html-element-attributes/workflows/main/badge.svg
 
 [build]: https://github.com/wooorm/html-element-attributes/actions
+
+[coverage-badge]: https://img.shields.io/codecov/c/github/wooorm/html-element-attributes.svg
+
+[coverage]: https://codecov.io/github/wooorm/html-element-attributes
 
 [downloads-badge]: https://img.shields.io/npm/dm/html-element-attributes.svg
 

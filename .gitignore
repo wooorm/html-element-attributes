@@ -1,6 +1,5 @@
 .DS_Store
 *.log
+coverage/
 node_modules/
-html-element-attributes.js
-html-element-attributes.min.js
 yarn.lock

@@ -1,6 +1,2 @@
-.nyc_output/
 coverage/
 *.md
-*.json
-html-element-attributes.js
-html-element-attributes.min.js

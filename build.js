@@ -1,23 +1,21 @@
-'use strict'
-
-var fs = require('fs')
-var https = require('https')
-var concat = require('concat-stream')
-var bail = require('bail')
-var unified = require('unified')
-var html = require('rehype-parse')
-var q = require('hast-util-select')
-var toString = require('hast-util-to-string')
-var map = require('.')
+import fs from 'fs'
+import https from 'https'
+import concat from 'concat-stream'
+import {bail} from 'bail'
+import unified from 'unified'
+import html from 'rehype-parse'
+import q from 'hast-util-select'
+import toString from 'hast-util-to-string'
+import {htmlElementAttributes} from './index.js'
 
 var processor = unified().use(html)
 
 // Global attributes.
-var globals = map['*']
+var globals = htmlElementAttributes['*']
 
 if (!globals) {
   globals = []
-  map['*'] = globals
+  htmlElementAttributes['*'] = globals
 }
 
 // Crawl WHATWG HTML.
@@ -58,7 +56,9 @@ function onhtml(response) {
 
       while (++offset < elements.length) {
         tagName = elements[offset].toLowerCase().trim()
-        attributes = map[tagName] || (map[tagName] = [])
+        attributes =
+          htmlElementAttributes[tagName] ||
+          (htmlElementAttributes[tagName] = [])
 
         if (!attributes.includes(name)) {
           attributes.push(name)
@@ -66,24 +66,32 @@ function onhtml(response) {
       }
     }
 
-    keys = Object.keys(map).sort()
+    keys = Object.keys(htmlElementAttributes).sort()
     index = -1
 
     while (++index < keys.length) {
       key = keys[index]
-      map[key].sort()
+      htmlElementAttributes[key].sort()
 
       if (key !== '*') {
-        map[key] = map[key].filter(function (attribute) {
-          return !globals.includes(attribute)
-        })
+        htmlElementAttributes[key] = htmlElementAttributes[key].filter(
+          function (attribute) {
+            return !globals.includes(attribute)
+          }
+        )
       }
 
-      if (map[key].length > 0) {
-        result[key] = map[key]
+      if (htmlElementAttributes[key].length > 0) {
+        result[key] = htmlElementAttributes[key]
       }
     }
 
-    fs.writeFile('index.json', JSON.stringify(result, null, 2) + '\n', bail)
+    fs.writeFile(
+      'index.js',
+      'export var htmlElementAttributes = ' +
+        JSON.stringify(result, null, 2) +
+        '\n',
+      bail
+    )
   }
 }

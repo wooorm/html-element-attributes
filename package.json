@@ -23,13 +23,15 @@
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
   ],
-  "main": "index.json",
+  "sideEffects": false,
+  "type": "module",
+  "main": "index.js",
   "files": [
-    "index.json"
+    "index.js"
   ],
   "devDependencies": {
-    "bail": "^1.0.0",
-    "browserify": "^17.0.0",
+    "bail": "^2.0.0",
+    "c8": "^7.0.0",
     "concat-stream": "^2.0.0",
     "hast-util-select": "^4.0.0",
     "hast-util-to-string": "^1.0.0",
@@ -38,18 +40,15 @@
     "remark-cli": "^9.0.0",
     "remark-preset-wooorm": "^8.0.0",
     "tape": "^5.0.0",
-    "tinyify": "^3.0.0",
     "unified": "^9.0.0",
     "xo": "^0.38.0"
   },
   "scripts": {
     "generate": "node build",
     "format": "remark . -qfo && prettier . -w --loglevel warn && xo --fix",
-    "build-bundle": "browserify index.json -s htmlElementAttributes -o html-element-attributes.js",
-    "build-mangle": "browserify index.json -s htmlElementAttributes -o html-element-attributes.min.js -p tinyify",
-    "build": "npm run build-bundle && npm run build-mangle",
-    "test-api": "node test",
-    "test": "npm run generate && npm run format && npm run build && npm run test-api"
+    "test-api": "node test.js",
+    "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov node test.js",
+    "test": "npm run generate && npm run format && npm run test-coverage"
   },
   "prettier": {
     "tabWidth": 2,
@@ -61,13 +60,11 @@
   },
   "xo": {
     "prettier": true,
-    "esnext": false,
     "rules": {
-      "unicorn/no-array-callback-reference": "off"
-    },
-    "ignores": [
-      "html-element-attributes.js"
-    ]
+      "import/no-mutable-exports": "off",
+      "no-var": "off",
+      "prefer-arrow-callback": "off"
+    }
   },
   "remarkConfig": {
     "plugins": [
