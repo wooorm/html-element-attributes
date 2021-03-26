@@ -4,7 +4,9 @@ import concat from 'concat-stream'
 import {bail} from 'bail'
 import unified from 'unified'
 import html from 'rehype-parse'
+// @ts-ignore
 import q from 'hast-util-select'
+// @ts-ignore
 import toString from 'hast-util-to-string'
 import {htmlElementAttributes} from './index.js'
 
@@ -21,19 +23,34 @@ if (!globals) {
 // Crawl WHATWG HTML.
 https.get('https://html.spec.whatwg.org/multipage/indices.html', onhtml)
 
+/**
+ * @param {import('http').IncomingMessage} response
+ */
 function onhtml(response) {
   response.pipe(concat(onconcat)).on('error', bail)
 
+  /**
+   * @param {Buffer} buf
+   */
   function onconcat(buf) {
     var nodes = q.selectAll('#attributes-1 tbody tr', processor.parse(buf))
     var index = -1
     var result = {}
+    /** @type {string[]} */
     var keys
+    /** @type {string} */
     var key
+    /** @type {string} */
     var name
+    /** @type {string} */
+    var value
+    /** @type {string[]} */
     var elements
+    /** @type {string} */
     var tagName
+    /** @type {string[]} */
     var attributes
+    /** @type {number} */
     var offset
 
     // Throw if we didn’t match, e.g., when the spec updates.
@@ -43,16 +60,16 @@ function onhtml(response) {
 
     while (++index < nodes.length) {
       name = toString(nodes[index].children[0]).trim()
-      elements = toString(nodes[index].children[1]).trim()
+      value = toString(nodes[index].children[1]).trim()
 
-      if (/custom elements/i.test(elements)) {
+      if (/custom elements/i.test(value)) {
         continue
       }
 
       offset = -1
-      elements = /HTML elements/.test(elements)
+      elements = /HTML elements/.test(value)
         ? ['*']
-        : elements.split(/;/g).map((d) => d.replace(/\([^)]+\)/g, '').trim())
+        : value.split(/;/g).map((d) => d.replace(/\([^)]+\)/g, '').trim())
 
       while (++offset < elements.length) {
         tagName = elements[offset].toLowerCase().trim()
@@ -75,9 +92,7 @@ function onhtml(response) {
 
       if (key !== '*') {
         htmlElementAttributes[key] = htmlElementAttributes[key].filter(
-          function (attribute) {
-            return !globals.includes(attribute)
-          }
+          (/** @type {string} */ d) => !globals.includes(d)
         )
       }
 

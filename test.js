@@ -8,6 +8,7 @@ test('htmlElementAttributes', function (t) {
   t.equal(typeof htmlElementAttributes, 'object', 'should be an `object`')
 
   t.doesNotThrow(function () {
+    /** @type {string} */
     var key
 
     for (key in htmlElementAttributes) {
@@ -18,10 +19,15 @@ test('htmlElementAttributes', function (t) {
   }, 'values should be array')
 
   t.doesNotThrow(function () {
+    /** @type {string} */
     var key
+    /** @type {string[]} */
     var props
+    /** @type {number} */
     var index
+    /** @type {string} */
     var prop
+    /** @type {string} */
     var label
 
     for (key in htmlElementAttributes) {
@@ -33,7 +39,7 @@ test('htmlElementAttributes', function (t) {
           prop = props[index]
           label = prop + ' in ' + key
 
-          assert.ok(typeof prop, 'string', label + ' should be string')
+          assert.strictEqual(typeof prop, 'string', label + ' should be string')
           assert.strictEqual(
             prop,
             prop.toLowerCase(),

@@ -37,16 +37,18 @@ console.log(htmlElementAttributes.ol)
 Yields:
 
 ```js
-[ 'accesskey',
+[
+  'accesskey',
   'autocapitalize',
   'autofocus',
   'class',
-  // ...
+  // …
   'style',
   'tabindex',
   'title',
-  'translate' ]
-[ 'compact', 'reversed', 'start', 'type' ]
+  'translate'
+]
+['compact', 'reversed', 'start', 'type']
 ```
 
 ## API
