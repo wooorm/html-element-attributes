@@ -35,35 +35,46 @@ function onhtml4(response) {
 
   function onconcat(buf) {
     var nodes = q.selectAll('table tr', processor.parse(buf))
+    var index = -1
+    var offset
+    var name
+    var elements
+    var tagName
+    var attributes
 
     // Throw if we didn’t match, e.g., when the spec updates.
     if (nodes.length === 0) {
       throw new Error('Missing results in html4')
     }
 
-    nodes.forEach(each)
+    while (++index < nodes.length) {
+      name = q.select('[title="Name"]', nodes[index])
+      elements = q.select('[title="Related Elements"]', nodes[index])
+
+      if (!name || !elements) {
+        continue
+      }
+
+      name = toString(name).trim()
+      elements = toString(elements)
+
+      if (!name || ev(name)) {
+        continue
+      }
+
+      elements = /All elements/.test(elements) ? ['*'] : elements.split(/,/g)
+      offset = -1
+      while (++offset < elements.length) {
+        tagName = elements[offset].toLowerCase().trim()
+        attributes = map[tagName] || (map[tagName] = [])
+
+        if (!attributes.includes(name)) {
+          attributes.push(name)
+        }
+      }
+    }
 
     done()
-  }
-
-  function each(node) {
-    var name = q.select('[title="Name"]', node)
-    var elements = q.select('[title="Related Elements"]', node)
-
-    if (!name || !elements) {
-      return
-    }
-
-    name = toString(name).trim()
-    elements = toString(elements)
-
-    if (!name || ev(name)) {
-      return
-    }
-
-    elements = /All elements/.test(elements) ? ['*'] : elements.split(/,/g)
-
-    elements.forEach(add(name))
   }
 }
 
@@ -72,55 +83,65 @@ function onhtml(response) {
 
   function onconcat(buf) {
     var nodes = q.selectAll('#attributes-1 tbody tr', processor.parse(buf))
+    var index = -1
+    var name
+    var elements
+    var tagName
+    var attributes
+    var offset
 
     // Throw if we didn’t match, e.g., when the spec updates.
     if (nodes.length === 0) {
       throw new Error('Missing results in html')
     }
 
-    nodes.forEach(each)
+    while (++index < nodes.length) {
+      name = toString(nodes[index].children[0]).trim()
+      elements = toString(nodes[index].children[1]).trim()
 
-    done()
-  }
+      if (/custom elements/i.test(elements)) {
+        continue
+      }
 
-  function each(node) {
-    var name = toString(node.children[0]).trim()
-    var elements = toString(node.children[1]).trim()
+      offset = -1
+      elements = /HTML elements/.test(elements)
+        ? ['*']
+        : elements.split(/;/g).map((d) => d.trim())
 
-    if (/custom elements/i.test(elements)) {
-      return
+      while (++offset < elements.length) {
+        tagName = elements[offset].toLowerCase().trim()
+        attributes = map[tagName] || (map[tagName] = [])
+
+        if (!attributes.includes(name)) {
+          attributes.push(name)
+        }
+      }
     }
 
-    elements = /HTML elements/.test(elements)
-      ? ['*']
-      : elements.split(/;/g).map((d) => d.trim())
-
-    elements.forEach(add(name))
+    done()
   }
 }
 
 // Generate the map.
 function done() {
-  var result
-
   counter++
 
   if (counter !== expect) {
     return
   }
 
-  result = {}
+  var result = {}
+  var keys = Object.keys(map).sort()
+  var index = -1
+  var key
 
-  Object.keys(map).sort().forEach(each)
-
-  fs.writeFile('index.json', JSON.stringify(result, 0, 2) + '\n', bail)
-
-  function each(key) {
+  while (++index < keys.length) {
+    key = keys[index]
     result[key] = map[key]
     map[key] = map[key].sort()
 
     if (key === '*') {
-      return
+      continue
     }
 
     map[key] = map[key].filter(function (attribute) {
@@ -131,17 +152,6 @@ function done() {
       delete map[key]
     }
   }
-}
 
-function add(name) {
-  return fn
-
-  function fn(element) {
-    var tagName = element.toLowerCase().trim()
-    var attributes = map[tagName] || (map[tagName] = [])
-
-    if (!attributes.includes(name)) {
-      attributes.push(name)
-    }
-  }
+  fs.writeFile('index.json', JSON.stringify(result, 0, 2) + '\n', bail)
 }
