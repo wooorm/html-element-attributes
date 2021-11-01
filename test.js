@@ -21,23 +21,15 @@ test('htmlElementAttributes', function (t) {
   t.doesNotThrow(function () {
     /** @type {string} */
     let key
-    /** @type {string[]} */
-    let props
-    /** @type {number} */
-    let index
-    /** @type {string} */
-    let prop
-    /** @type {string} */
-    let label
 
     for (key in htmlElementAttributes) {
       if (own.call(htmlElementAttributes, key)) {
-        props = htmlElementAttributes[key]
-        index = -1
+        const props = htmlElementAttributes[key]
+        let index = -1
 
         while (++index < props.length) {
-          prop = props[index]
-          label = prop + ' in ' + key
+          const prop = props[index]
+          const label = prop + ' in ' + key
 
           assert.strictEqual(typeof prop, 'string', label + ' should be string')
           assert.strictEqual(
