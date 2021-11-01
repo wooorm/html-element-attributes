@@ -1,15 +1,15 @@
-import assert from 'assert'
+import assert from 'node:assert'
 import test from 'tape'
 import {htmlElementAttributes} from './index.js'
 
-var own = {}.hasOwnProperty
+const own = {}.hasOwnProperty
 
 test('htmlElementAttributes', function (t) {
   t.equal(typeof htmlElementAttributes, 'object', 'should be an `object`')
 
   t.doesNotThrow(function () {
     /** @type {string} */
-    var key
+    let key
 
     for (key in htmlElementAttributes) {
       if (own.call(htmlElementAttributes, key)) {
@@ -20,15 +20,15 @@ test('htmlElementAttributes', function (t) {
 
   t.doesNotThrow(function () {
     /** @type {string} */
-    var key
+    let key
     /** @type {string[]} */
-    var props
+    let props
     /** @type {number} */
-    var index
+    let index
     /** @type {string} */
-    var prop
+    let prop
     /** @type {string} */
-    var label
+    let label
 
     for (key in htmlElementAttributes) {
       if (own.call(htmlElementAttributes, key)) {

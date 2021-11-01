@@ -1,4 +1,4 @@
-export var htmlElementAttributes = {
+export const htmlElementAttributes = {
   '*': [
     'accesskey',
     'autocapitalize',

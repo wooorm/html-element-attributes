@@ -1,19 +1,17 @@
-import fs from 'fs'
-import https from 'https'
+import fs from 'node:fs'
+import https from 'node:https'
 import concat from 'concat-stream'
 import {bail} from 'bail'
-import unified from 'unified'
+import {unified} from 'unified'
 import html from 'rehype-parse'
-// @ts-ignore
-import q from 'hast-util-select'
-// @ts-ignore
-import toString from 'hast-util-to-string'
+import {selectAll} from 'hast-util-select'
+import {toString} from 'hast-util-to-string'
 import {htmlElementAttributes} from './index.js'
 
-var processor = unified().use(html)
+const processor = unified().use(html)
 
 // Global attributes.
-var globals = htmlElementAttributes['*']
+let globals = htmlElementAttributes['*']
 
 if (!globals) {
   globals = []
@@ -33,25 +31,23 @@ function onhtml(response) {
    * @param {Buffer} buf
    */
   function onconcat(buf) {
-    var nodes = q.selectAll('#attributes-1 tbody tr', processor.parse(buf))
-    var index = -1
-    var result = {}
+    const nodes = selectAll('#attributes-1 tbody tr', processor.parse(buf))
+    let index = -1
+    const result = {}
+    /** @type {string} */
+    let key
+    /** @type {string} */
+    let name
+    /** @type {string} */
+    let value
     /** @type {string[]} */
-    var keys
+    let elements
     /** @type {string} */
-    var key
-    /** @type {string} */
-    var name
-    /** @type {string} */
-    var value
+    let tagName
     /** @type {string[]} */
-    var elements
-    /** @type {string} */
-    var tagName
-    /** @type {string[]} */
-    var attributes
+    let attributes
     /** @type {number} */
-    var offset
+    let offset
 
     // Throw if we didn’t match, e.g., when the spec updates.
     if (nodes.length === 0) {
@@ -83,7 +79,7 @@ function onhtml(response) {
       }
     }
 
-    keys = Object.keys(htmlElementAttributes).sort()
+    const keys = Object.keys(htmlElementAttributes).sort()
     index = -1
 
     while (++index < keys.length) {
@@ -103,7 +99,7 @@ function onhtml(response) {
 
     fs.writeFile(
       'index.js',
-      'export var htmlElementAttributes = ' +
+      'export const htmlElementAttributes = ' +
         JSON.stringify(result, null, 2) +
         '\n',
       bail
