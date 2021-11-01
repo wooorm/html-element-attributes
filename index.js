@@ -245,7 +245,7 @@ export const htmlElementAttributes = {
   ],
   map: ['name'],
   menu: ['compact'],
-  meta: ['charset', 'content', 'http-equiv', 'name', 'scheme'],
+  meta: ['charset', 'content', 'http-equiv', 'media', 'name', 'scheme'],
   meter: ['high', 'low', 'max', 'min', 'optimum', 'value'],
   object: [
     'align',
