@@ -1,3 +1,8 @@
+/**
+ * Map of HTML elements to allowed attributes.
+ *
+ * @type {Record<string, Array<string>>}
+ */
 export const htmlElementAttributes = {
   '*': [
     'accesskey',

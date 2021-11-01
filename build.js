@@ -25,6 +25,7 @@ https.get('https://html.spec.whatwg.org/multipage/indices.html', (response) => {
     .pipe(
       concatStream((buf) => {
         const nodes = selectAll('#attributes-1 tbody tr', processor.parse(buf))
+        /** @type {Record<string, Array<string>>} */
         const result = {}
         let index = -1
 
@@ -83,9 +84,16 @@ https.get('https://html.spec.whatwg.org/multipage/indices.html', (response) => {
 
         fs.writeFile(
           'index.js',
-          'export const htmlElementAttributes = ' +
-            JSON.stringify(result, null, 2) +
-            '\n',
+          [
+            '/**',
+            ' * Map of HTML elements to allowed attributes.',
+            ' *',
+            ' * @type {Record<string, Array<string>>}',
+            ' */',
+            'export const htmlElementAttributes = ' +
+              JSON.stringify(result, null, 2),
+            ''
+          ].join('\n'),
           bail
         )
       })
