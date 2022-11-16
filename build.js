@@ -1,16 +1,11 @@
-import fs from 'node:fs'
-import https from 'node:https'
-import concatStream from 'concat-stream'
-import {bail} from 'bail'
-import {unified} from 'unified'
-import rehypeParse from 'rehype-parse'
+import fs from 'node:fs/promises'
+import fetch from 'node-fetch'
+import {fromHtml} from 'hast-util-from-html'
 import {selectAll} from 'hast-util-select'
 import {toString} from 'hast-util-to-string'
 import {htmlElementAttributes} from './index.js'
 
 const own = {}.hasOwnProperty
-
-const processor = unified().use(rehypeParse)
 
 if (!('*' in htmlElementAttributes)) {
   htmlElementAttributes['*'] = []
@@ -20,83 +15,79 @@ if (!('*' in htmlElementAttributes)) {
 const globals = htmlElementAttributes['*']
 
 // Crawl WHATWG HTML.
-https.get('https://html.spec.whatwg.org/multipage/indices.html', (response) => {
-  response
-    .pipe(
-      concatStream((buf) => {
-        const nodes = selectAll('#attributes-1 tbody tr', processor.parse(buf))
-        /** @type {Record<string, Array<string>>} */
-        const result = {}
-        let index = -1
+const response = await fetch(
+  'https://html.spec.whatwg.org/multipage/indices.html'
+)
+const text = await response.text()
 
-        // Throw if we didn’t match, e.g., when the spec updates.
-        if (nodes.length === 0) {
-          throw new Error('Missing results in html')
-        }
+const nodes = selectAll('#attributes-1 tbody tr', fromHtml(text))
 
-        while (++index < nodes.length) {
-          const name = toString(nodes[index].children[0]).trim()
-          const value = toString(nodes[index].children[1]).trim()
+// Throw if we didn’t match, e.g., when the spec updates.
+if (nodes.length === 0) {
+  throw new Error('Missing results in html')
+}
 
-          if (/custom elements/i.test(value)) {
-            continue
-          }
+/** @type {Record<string, Array<string>>} */
+const result = {}
+let index = -1
 
-          const elements = /HTML elements/.test(value)
-            ? ['*']
-            : value.split(/;/g).map((d) => d.replace(/\([^)]+\)/g, '').trim())
-          let offset = -1
+while (++index < nodes.length) {
+  const name = toString(nodes[index].children[0]).trim()
+  const value = toString(nodes[index].children[1]).trim()
 
-          while (++offset < elements.length) {
-            const tagName = elements[offset].toLowerCase().trim()
+  if (/custom elements/i.test(value)) {
+    continue
+  }
 
-            if (!own.call(htmlElementAttributes, tagName)) {
-              htmlElementAttributes[tagName] = []
-            }
+  const elements = /HTML elements/.test(value)
+    ? ['*']
+    : value.split(/;/g).map((d) => d.replace(/\([^)]+\)/g, '').trim())
+  let offset = -1
 
-            /** @type {string[]} */
-            const attributes = htmlElementAttributes[tagName]
+  while (++offset < elements.length) {
+    const tagName = elements[offset].toLowerCase().trim()
 
-            if (!attributes.includes(name)) {
-              attributes.push(name)
-            }
-          }
-        }
+    if (!own.call(htmlElementAttributes, tagName)) {
+      htmlElementAttributes[tagName] = []
+    }
 
-        const keys = Object.keys(htmlElementAttributes).sort()
-        index = -1
+    /** @type {string[]} */
+    const attributes = htmlElementAttributes[tagName]
 
-        while (++index < keys.length) {
-          const key = keys[index]
+    if (!attributes.includes(name)) {
+      attributes.push(name)
+    }
+  }
+}
 
-          htmlElementAttributes[key].sort()
+const keys = Object.keys(htmlElementAttributes).sort()
+index = -1
 
-          if (key !== '*') {
-            htmlElementAttributes[key] = htmlElementAttributes[key].filter(
-              (/** @type {string} */ d) => !globals.includes(d)
-            )
-          }
+while (++index < keys.length) {
+  const key = keys[index]
 
-          if (htmlElementAttributes[key].length > 0) {
-            result[key] = htmlElementAttributes[key]
-          }
-        }
+  htmlElementAttributes[key].sort()
 
-        fs.writeFile(
-          'index.js',
-          [
-            '/**',
-            ' * Map of HTML elements to allowed attributes.',
-            ' *',
-            ' * @type {Record<string, Array<string>>}',
-            ' */',
-            'export const htmlElementAttributes = ' +
-              JSON.stringify(result, null, 2),
-            ''
-          ].join('\n'),
-          bail
-        )
-      })
+  if (key !== '*') {
+    htmlElementAttributes[key] = htmlElementAttributes[key].filter(
+      (/** @type {string} */ d) => !globals.includes(d)
     )
-    .on('error', bail)
-})
+  }
+
+  if (htmlElementAttributes[key].length > 0) {
+    result[key] = htmlElementAttributes[key]
+  }
+}
+
+await fs.writeFile(
+  'index.js',
+  [
+    '/**',
+    ' * Map of HTML elements to allowed attributes.',
+    ' *',
+    ' * @type {Record<string, Array<string>>}',
+    ' */',
+    'export const htmlElementAttributes = ' + JSON.stringify(result, null, 2),
+    ''
+  ].join('\n')
+)
