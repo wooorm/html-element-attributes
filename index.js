@@ -15,6 +15,7 @@ export const htmlElementAttributes = {
     'enterkeyhint',
     'hidden',
     'id',
+    'inert',
     'inputmode',
     'is',
     'itemid',
@@ -226,6 +227,7 @@ export const htmlElementAttributes = {
   li: ['type', 'value'],
   link: [
     'as',
+    'blocking',
     'charset',
     'color',
     'crossorigin',
@@ -278,6 +280,7 @@ export const htmlElementAttributes = {
   q: ['cite'],
   script: [
     'async',
+    'blocking',
     'charset',
     'crossorigin',
     'defer',
@@ -299,7 +302,7 @@ export const htmlElementAttributes = {
   ],
   slot: ['name'],
   source: ['height', 'media', 'sizes', 'src', 'srcset', 'type', 'width'],
-  style: ['media', 'type'],
+  style: ['blocking', 'media', 'type'],
   table: [
     'align',
     'bgcolor',
