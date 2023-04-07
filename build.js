@@ -1,5 +1,5 @@
 import fs from 'node:fs/promises'
-import fetch from 'node-fetch'
+import {fetch} from 'undici'
 import {fromHtml} from 'hast-util-from-html'
 import {selectAll} from 'hast-util-select'
 import {toString} from 'hast-util-to-string'
