@@ -109,7 +109,7 @@ export const htmlElementAttributes = {
   colgroup: ['align', 'char', 'charoff', 'span', 'valign', 'width'],
   data: ['value'],
   del: ['cite', 'datetime'],
-  details: ['open'],
+  details: ['name', 'open'],
   dialog: ['open'],
   dir: ['compact'],
   div: ['align'],
@@ -339,6 +339,7 @@ export const htmlElementAttributes = {
     'valign',
     'width'
   ],
+  template: ['shadowrootdelegatesfocus', 'shadowrootmode'],
   textarea: [
     'autocomplete',
     'cols',
