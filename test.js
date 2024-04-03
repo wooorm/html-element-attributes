@@ -18,21 +18,29 @@ test('htmlElementAttributes', function () {
 
   for (key in htmlElementAttributes) {
     if (own.call(htmlElementAttributes, key)) {
-      const props = htmlElementAttributes[key]
+      const properties = htmlElementAttributes[key]
       let index = -1
 
-      while (++index < props.length) {
-        const prop = props[index]
-        const label = prop + ' in ' + key
+      while (++index < properties.length) {
+        const property = properties[index]
+        const label = property + ' in ' + key
 
-        assert.strictEqual(typeof prop, 'string', label + ' should be string')
         assert.strictEqual(
-          prop,
-          prop.toLowerCase(),
+          typeof property,
+          'string',
+          label + ' should be string'
+        )
+        assert.strictEqual(
+          property,
+          property.toLowerCase(),
           label + ' should be lower-case'
         )
-        assert.strictEqual(prop, prop.trim(), label + ' should be trimmed')
-        assert.ok(/^[a-z-]+$/.test(prop), label + ' should be `a-z-`')
+        assert.strictEqual(
+          property,
+          property.trim(),
+          label + ' should be trimmed'
+        )
+        assert.ok(/^[a-z-]+$/.test(property), label + ' should be `a-z-`')
       }
     }
   }
