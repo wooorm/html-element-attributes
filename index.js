@@ -31,7 +31,8 @@ export const htmlElementAttributes = {
     'style',
     'tabindex',
     'title',
-    'translate'
+    'translate',
+    'writingsuggestions'
   ],
   a: [
     'charset',
@@ -339,7 +340,11 @@ export const htmlElementAttributes = {
     'valign',
     'width'
   ],
-  template: ['shadowrootdelegatesfocus', 'shadowrootmode'],
+  template: [
+    'shadowrootclonable',
+    'shadowrootdelegatesfocus',
+    'shadowrootmode'
+  ],
   textarea: [
     'autocomplete',
     'cols',
