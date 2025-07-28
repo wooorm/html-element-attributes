@@ -2,8 +2,6 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import {htmlElementAttributes} from './index.js'
 
-const own = {}.hasOwnProperty
-
 test('htmlElementAttributes', function () {
   assert.equal(typeof htmlElementAttributes, 'object', 'should be an `object`')
 
@@ -11,13 +9,13 @@ test('htmlElementAttributes', function () {
   let key
 
   for (key in htmlElementAttributes) {
-    if (own.call(htmlElementAttributes, key)) {
+    if (Object.hasOwn(htmlElementAttributes, key)) {
       assert.ok(Array.isArray(htmlElementAttributes[key]), key)
     }
   }
 
   for (key in htmlElementAttributes) {
-    if (own.call(htmlElementAttributes, key)) {
+    if (Object.hasOwn(htmlElementAttributes, key)) {
       const properties = htmlElementAttributes[key]
       let index = -1
 
