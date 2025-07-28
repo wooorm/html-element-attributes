@@ -73,7 +73,7 @@
   "types#": "to do: next major: remove",
   "types": "index.d.ts",
   "type": "module",
-  "version": "3.4.0",
+  "version": "3.5.0",
   "xo": {
     "prettier": true,
     "rules": {
