@@ -7,6 +7,7 @@ export const htmlElementAttributes = {
   '*': [
     'accesskey',
     'autocapitalize',
+    'autocorrect',
     'autofocus',
     'class',
     'contenteditable',
@@ -93,6 +94,8 @@ export const htmlElementAttributes = {
   body: ['alink', 'background', 'bgcolor', 'link', 'text', 'vlink'],
   br: ['clear'],
   button: [
+    'command',
+    'commandfor',
     'disabled',
     'form',
     'formaction',
@@ -113,7 +116,7 @@ export const htmlElementAttributes = {
   data: ['value'],
   del: ['cite', 'datetime'],
   details: ['name', 'open'],
-  dialog: ['open'],
+  dialog: ['closedby', 'open'],
   dir: ['compact'],
   div: ['align'],
   dl: ['compact'],
@@ -195,9 +198,11 @@ export const htmlElementAttributes = {
   input: [
     'accept',
     'align',
+    'alpha',
     'alt',
     'autocomplete',
     'checked',
+    'colorspace',
     'dirname',
     'disabled',
     'form',
@@ -344,8 +349,10 @@ export const htmlElementAttributes = {
   ],
   template: [
     'shadowrootclonable',
+    'shadowrootcustomelementregistry',
     'shadowrootdelegatesfocus',
-    'shadowrootmode'
+    'shadowrootmode',
+    'shadowrootserializable'
   ],
   textarea: [
     'autocomplete',
