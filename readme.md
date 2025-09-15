@@ -94,8 +94,7 @@ There is no default export.
 
 ### `htmlElementAttributes`
 
-Map of lowercase HTML elements to allowed attributes
-(`Record<string, Array<string>>`).
+Map of lowercase HTML elements to allowed attributes.
 
 ## Types
 

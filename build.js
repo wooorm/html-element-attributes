@@ -84,10 +84,8 @@ await fs.writeFile(
   [
     '/**',
     ' * Map of HTML elements to allowed attributes.',
-    ' *',
-    ' * @type {Record<string, Array<string>>}',
     ' */',
-    'export const htmlElementAttributes = ' + JSON.stringify(result, null, 2),
+    'export const htmlElementAttributes = /** @type {const} */ (' + JSON.stringify(result, null, 2) + ')',
     ''
   ].join('\n')
 )
