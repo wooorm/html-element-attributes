@@ -1,9 +1,7 @@
 /**
  * Map of HTML elements to allowed attributes.
- *
- * @type {Record<string, Array<string>>}
  */
-export const htmlElementAttributes = {
+export const htmlElementAttributes = /** @type {const} */ ({
   '*': [
     'accesskey',
     'autocapitalize',
@@ -404,4 +402,4 @@ export const htmlElementAttributes = {
     'src',
     'width'
   ]
-}
+})
